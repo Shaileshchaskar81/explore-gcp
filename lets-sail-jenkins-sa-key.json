@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "lets-sail-development",
+  "private_key_id": "05f2f0a07d4e0a3c7f7a85bf76e641829e5eb987",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDLBBm5YkwDvAl9\nbiDfVHB5xhjwVY2GIPU/mijsAu5uPC/bEyK14McRvvjCMRi6nkXyuMQXuhRRKdBH\nGUNQyUUuEnfJf/JS5UITpkjHj9wYaUXIezzDgad4AfViTU7afFFs8QP2fW6XJ+V+\n5lZ7rYiIEe8Foq5UW/cy7z4hCGe/r+6ckKErQKL3oFdA0vZRF4RyVCjmwbrjgRtU\nnQa25l3HWSGRALM5XswdJtzmgHMDTFvXgS+p4e6oXmRqoWMxtqAAZZTMSCiW87oG\nDW0h5zYmjt5F5QDsED+DkULZy3+V2CJJpbP5yEqMuJx6Qp0awAgw3/VCc7Rl7UIr\n4w6zg775AgMBAAECggEABGK3iotu0HLWsqS3JZPtpRfMMJ7sgn4CRkg2g5ixnWSD\n9SPV719mdYHuXkWQvvFN2gc3RzrwFuvEEdEgJOXgLnVcLJhsu/Ezavi/4D3Bl65o\ngUL2RlPt8ff63M+GOU6PtL6FIyVFBxNn0AS6UAwo46Wdh/3ibbSZ47oK2cxUb23b\n6/wslCTKXj5wZYS7yEb1YQah78FvCqdHWM44QBRk3JW7axYrfyBnbLANSiOMyRT7\nkl+Wfb5+w2PSg0QPirGjuq8m8bSGP9b023ZwbvEi7J7ZQrEVrKVauOrGvydR4u77\nrpFqZetXTzlnLGNe6LdcqAxqqpm9j3c8PeA4urdaLQKBgQDoc8HF5Bc1NgIAiKsl\no0RQsSSNL9GYXw/uCuUnZbWbnpzd4KNz2ftTYozH+uYgVPzIe1RrMCHwKFm8zQvv\n0TQiTHzH7ROBOzHimaQnlZK9BLi7n2LWt+sj8F0959QLBnysr4fWu4g0GCskx6vB\n6YrLFp0DdI/ZQxZgXCz4T37VLQKBgQDflPfNKVmGhdig9G+6b5QRFaxiAdJ4qeep\nOhClceSwFKWpNWOEH0J2UQFtFQpPrGiupSc7Tn2V6jDiL6zm7AbpmHIcr5CFHfgN\ngQ/UDt8ZHS0WZHIYiCHJS/WPg201f1UzOxOb0KxzHX5AcuLtzR5jOincmYNyw5Up\nIDqzt8VIfQKBgBEcNC800uB/0TXo2XAzzFuELoSV+H+Wv71t3+A+hFeoHTPXzTBB\n41YH8wTlWvsWRmUbbuNU76qVzcUv8qj8ZTIBH044DS9+A/YCCStAv0RajJ6C5OuZ\nLh2/G53q6pjFKXgsk3si4quy+7oBWIs1fZnlWDlg4xXC8mq1XjoI3/UhAoGBAI69\nHDbu3yjy6opXg70S3wTJQXSQlT5TuoJff6EgRU/k3p5YZ2BCVLwUm0R42kxjVbGp\n3pIOWj8LdInyxf/nT8JygOevbiSOLX7xlplbpTLzXYWeOvlOb8ODqxIkZeRxloNO\nhAZGAtK7UY7zyczn1y6iQ3eCyljKZMAMw21ZNapBAoGBAJL0iBRaEUCtNxb/c8Df\nbonjhEviEO39OJzdxrJyG7jwA8Nz+QVCRcXGQcPleQ4Ki0ITHj1kxxJAvqXDUfN7\nf6Ip2TUcug0yRG94/0NsH8b6fWp20AQpfTuBzWb1xerkKGnOs3thGo03Psgb//CT\niJIcRO3ktXabWpPUlPptxA/O\n-----END PRIVATE KEY-----\n",
+  "client_email": "lets-sail-jenkins-sa@lets-sail-development.iam.gserviceaccount.com",
+  "client_id": "106302367426817179727",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/lets-sail-jenkins-sa%40lets-sail-development.iam.gserviceaccount.com"
+}

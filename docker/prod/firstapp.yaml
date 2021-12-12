@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: first-app
+  namespace: prod
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      run: first-app
+  template:
+    metadata:
+      labels:
+        run: first-app
+    spec:
+      containers:
+      - name: first-app
+        image: gcr.io/lets-sail-development/first-app:1.0.0
+        ports:
+            - name: http
+              containerPort: 80
