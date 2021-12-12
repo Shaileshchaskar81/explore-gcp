@@ -1,6 +1,5 @@
 pipeline {
-
-  environment {
+environment {
     PROJECT = "lets-sail-development"
     APP_NAME = "first-app"
     FE_SVC_NAME = "${APP_NAME}-service"
@@ -9,16 +8,14 @@ pipeline {
     IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
     JENKINS_CRED = "${PROJECT}"
   }
-
-  agent {
+agent {
     kubernetes {
       label 'first-app'
       defaultContainer 'jnlp'
       yaml """
 apiVersion: v1
 kind: Pod
-metadata:
-  namespace: prod 
+metadata:  
 labels:
   component: ci  
 spec:
@@ -69,32 +66,25 @@ spec:
       // Developer Branches
       when {
         not { branch 'master' }
-        not { branch 'Uat' }
+        not { branch 'uat' }
       }
       steps {
         container('kubectl') {
-          // Create namespace if it doesn't exist
-          sh("kubectl get ns ${env.BRANCH_NAME} || kubectl create ns ${env.BRANCH_NAME}")
-          // Don't use public load balancing for development branches
-          sh("sed -i.bak 's#LoadBalancer#ClusterIP#' ./k8s/services/frontend.yaml")
-          sh("sed -i.bak 's#gcr.io/lets-sail-development/first-app:1.0.0#${IMAGE_TAG}#' ./k8s/dev/*.yaml")
-          step([$class: 'KubernetesEngineBuilder', namespace: "${env.BRANCH_NAME}", projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'k8s/services', credentialsId: env.JENKINS_CRED, verifyDeployments: false])
-          step([$class: 'KubernetesEngineBuilder', namespace: "${env.BRANCH_NAME}", projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'k8s/dev', credentialsId: env.JENKINS_CRED, verifyDeployments: true])
-          echo 'To access your environment run `kubectl proxy`'
-          echo "Then access your service via http://localhost:8001/api/v1/proxy/namespaces/${env.BRANCH_NAME}/services/${FE_SVC_NAME}:80/"
+          sh("sed -i.bak 's#gcr.io/lets-sail-development/first-app:1.0.0#${IMAGE_TAG}#' ./docker/dev/*.yaml")
+          step([$class: 'KubernetesEngineBuilder', namespace: "dev", projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'docker/dev/firstappservice.yaml', credentialsId: env.JENKINS_CRED, verifyDeployments: false])
+          step([$class: 'KubernetesEngineBuilder', namespace: "dev", projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'docker/dev/firstapp.yaml', credentialsId: env.JENKINS_CRED, verifyDeployments: true])
         }
       }
     }
-    stage('Deploy Uat') {
+    stage('Deploy uat') {
       // Canary branch
-      when { branch 'Uat' }
+      when { branch 'uat' }
       steps {
         container('kubectl') {
           // Change deployed image in canary to the one we just built
-          sh("sed -i.bak 's#gcr.io/lets-sail-development/first-app:1.0.0#${IMAGE_TAG}#' ./k8s/Uat/*.yaml")
-          step([$class: 'KubernetesEngineBuilder', namespace:'prod', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'k8s/services', credentialsId: env.JENKINS_CRED, verifyDeployments: false])
-          step([$class: 'KubernetesEngineBuilder', namespace:'prod', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'k8s/canary', credentialsId: env.JENKINS_CRED, verifyDeployments: true])
-          sh("echo http://`kubectl --namespace=prod get service/${FE_SVC_NAME} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'` > ${FE_SVC_NAME}")
+          sh("sed -i.bak 's#gcr.io/lets-sail-development/first-app:1.0.0#${IMAGE_TAG}#' ./docker/uat/*.yaml")
+          step([$class: 'KubernetesEngineBuilder', namespace:'uat', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'docker/uat/firstappservice.yaml', credentialsId: env.JENKINS_CRED, verifyDeployments: false])
+          step([$class: 'KubernetesEngineBuilder', namespace:'uat', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'docker/uat/firstapp.yaml', credentialsId: env.JENKINS_CRED, verifyDeployments: true])          
         }
       }
     }
@@ -106,7 +96,7 @@ spec:
         // Change deployed image in canary to the one we just built
           sh("sed -i.bak 's#gcr.io/lets-sail-development/first-app:1.0.0#${IMAGE_TAG}#' ./docker/prod/*.yaml")
           step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'docker/prod/firstappservice.yaml', credentialsId: env.JENKINS_CRED, verifyDeployments: false])
-          step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'docker/prod/firstapp.yaml', credentialsId: env.JENKINS_CRED, verifyDeployments: false])          
+          step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT, clusterName: env.CLUSTER, zone: env.CLUSTER_ZONE, manifestPattern: 'docker/prod/firstapp.yaml', credentialsId: env.JENKINS_CRED, verifyDeployments: true])          
         }
       }
     }
